@@ -1,6 +1,8 @@
 language: python
 sudo: false
 python:
+  - 2.7
+  - 3.4
   - 3.5
 cache:
   directories:
@@ -10,38 +12,9 @@ matrix:
 services:
   - postgresql
   - mysql
-env:
-  - TOXENV=py27-django18-sqlite
-  - TOXENV=py27-django18-postgres
-  - TOXENV=py27-django18-mysql
-  - TOXENV=py27-django19-sqlite
-  - TOXENV=py27-django19-postgres
-  - TOXENV=py27-django19-mysql
-  - TOXENV=py27-django110-sqlite
-  - TOXENV=py27-django110-postgres
-  - TOXENV=py27-django110-mysql
 
-  - TOXENV=py34-django18-sqlite
-  - TOXENV=py34-django18-postgres
-  - TOXENV=py34-django18-mysql
-  - TOXENV=py34-django19-sqlite
-  - TOXENV=py34-django19-postgres
-  - TOXENV=py34-django19-mysql
-  - TOXENV=py34-django110-sqlite
-  - TOXENV=py34-django110-postgres
-  - TOXENV=py34-django110-mysql
-
-  - TOXENV=py35-django18-sqlite
-  - TOXENV=py35-django18-postgres
-  - TOXENV=py35-django18-mysql
-  - TOXENV=py35-django19-sqlite
-  - TOXENV=py35-django19-postgres
-  - TOXENV=py35-django19-mysql
-  - TOXENV=py35-django110-sqlite
-  - TOXENV=py35-django110-postgres
-  - TOXENV=py35-django110-mysql
 install:
-  - pip install tox
+  - pip install tox-travis
 before_script:
   - mysql -e 'create database test_project'
   - psql -c 'create database test_project;' -U postgres
