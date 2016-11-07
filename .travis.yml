@@ -1,50 +1,105 @@
 language: python
 sudo: false
-python:
-  - 3.5
 cache:
   directories:
     - $HOME/.cache/pip
 matrix:
-  fast_finish: true
+  include:
+  - python: '2.7'
+    env:
+    - TOX_ENV=py27-django18-sqlite
+  - python: '2.7'
+    env:
+    - TOX_ENV=py27-django18-postgres
+  - python: '2.7'
+    env:
+    - TOX_ENV=py27-django18-mysql
+  - python: '2.7'
+    env:
+    - TOX_ENV=py27-django19-sqlite
+  - python: '2.7'
+    env:
+    - TOX_ENV=py27-django19-postgres
+  - python: '2.7'
+    env:
+    - TOX_ENV=py27-django19-mysql
+  - python: '2.7'
+    env:
+    - TOX_ENV=py27-django110-sqlite
+  - python: '2.7'
+    env:
+    - TOX_ENV=py27-django110-postgres
+  - python: '2.7'
+    env:
+    - TOX_ENV=py27-django110-mysql
+  - python: '3.4'
+    env:
+    - TOX_ENV=py34-django18-sqlite
+  - python: '3.4'
+    env:
+    - TOX_ENV=py34-django18-postgres
+  - python: '3.4'
+    env:
+    - TOX_ENV=py34-django18-mysql
+  - python: '3.4'
+    env:
+    - TOX_ENV=py34-django19-sqlite
+  - python: '3.4'
+    env:
+    - TOX_ENV=py34-django19-postgres
+  - python: '3.4'
+    env:
+    - TOX_ENV=py34-django19-mysql
+  - python: '3.4'
+    env:
+    - TOX_ENV=py34-django110-sqlite
+  - python: '3.4'
+    env:
+    - TOX_ENV=py34-django110-postgres
+  - python: '3.4'
+    env:
+    - TOX_ENV=py34-django110-mysql
+  - python: '3.5'
+    env:
+    - TOX_ENV=py35-django18-sqlite
+  - python: '3.5'
+    env:
+    - TOX_ENV=py35-django18-postgres
+  - python: '3.5'
+    env:
+    - TOX_ENV=py35-django18-mysql
+  - python: '3.5'
+    env:
+    - TOX_ENV=py35-django19-sqlite
+  - python: '3.5'
+    env:
+    - TOX_ENV=py35-django19-postgres
+  - python: '3.5'
+    env:
+    - TOX_ENV=py35-django19-mysql
+  - python: '3.5'
+    env:
+    - TOX_ENV=py35-django110-sqlite
+  - python: '3.5'
+    env:
+    - TOX_ENV=py35-django110-postgres
+  - python: '3.5'
+    env:
+    - TOX_ENV=py35-django110-mysql
+  - python: 'py35'
+    env:
+    - TOX_ENV=flake8
+
 services:
   - postgresql
   - mysql
-env:
-  - TOXENV=py27-django18-sqlite
-  - TOXENV=py27-django18-postgres
-  - TOXENV=py27-django18-mysql
-  - TOXENV=py27-django19-sqlite
-  - TOXENV=py27-django19-postgres
-  - TOXENV=py27-django19-mysql
-  - TOXENV=py27-django110-sqlite
-  - TOXENV=py27-django110-postgres
-  - TOXENV=py27-django110-mysql
-
-  - TOXENV=py34-django18-sqlite
-  - TOXENV=py34-django18-postgres
-  - TOXENV=py34-django18-mysql
-  - TOXENV=py34-django19-sqlite
-  - TOXENV=py34-django19-postgres
-  - TOXENV=py34-django19-mysql
-  - TOXENV=py34-django110-sqlite
-  - TOXENV=py34-django110-postgres
-  - TOXENV=py34-django110-mysql
-
-  - TOXENV=py35-django18-sqlite
-  - TOXENV=py35-django18-postgres
-  - TOXENV=py35-django18-mysql
-  - TOXENV=py35-django19-sqlite
-  - TOXENV=py35-django19-postgres
-  - TOXENV=py35-django19-mysql
-  - TOXENV=py35-django110-sqlite
-  - TOXENV=py35-django110-postgres
-  - TOXENV=py35-django110-mysql
 install:
   - pip install tox
 before_script:
   - mysql -e 'create database test_project'
   - psql -c 'create database test_project;' -U postgres
-script: tox
+script: tox -e $TOX_ENV
 notifications:
   email: false
+
+
